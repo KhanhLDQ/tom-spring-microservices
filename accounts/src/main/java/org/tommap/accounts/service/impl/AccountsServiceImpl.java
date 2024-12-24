@@ -2,10 +2,14 @@ package org.tommap.accounts.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.tommap.accounts.dto.AccountsDTO;
 import org.tommap.accounts.dto.CustomerDTO;
 import org.tommap.accounts.entity.Account;
 import org.tommap.accounts.entity.Customer;
 import org.tommap.accounts.exception.CustomerAlreadyExistsException;
+import org.tommap.accounts.exception.ResourceNotFoundException;
+import org.tommap.accounts.mapper.AccountsMapper;
+import org.tommap.accounts.mapper.CustomerMapper;
 import org.tommap.accounts.repository.AccountsRepository;
 import org.tommap.accounts.repository.CustomerRepository;
 import org.tommap.accounts.service.IAccountsService;
@@ -40,6 +44,20 @@ public class AccountsServiceImpl implements IAccountsService {
         Customer savedCustomer = customerRepository.save(customer);
 
         accountsRepository.save(createAccountEntity(savedCustomer));
+    }
+
+    @Override
+    public CustomerDTO fetchAccount(String mobileNumber) {
+        Customer customer = customerRepository.findByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer", "mobileNumber", mobileNumber));
+
+        Account account = accountsRepository.findByCustomerId(customer.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Account", "customerId", customer.getId().toString()));
+
+        CustomerDTO customerDTO = CustomerMapper.toCustomerDTO(customer, new CustomerDTO());
+        customerDTO.setAccountsDTO(AccountsMapper.toAccountsDTO(account, new AccountsDTO()));
+
+        return customerDTO;
     }
 
     private Account createAccountEntity(Customer customer) {
