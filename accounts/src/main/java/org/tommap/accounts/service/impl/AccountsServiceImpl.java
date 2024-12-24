@@ -39,8 +39,6 @@ public class AccountsServiceImpl implements IAccountsService {
         }
 
         Customer customer = toCustomer(customerDTO, new Customer());
-        customer.setCreatedAt(LocalDateTime.now());
-        customer.setCreatedBy("Anonymous");
         Customer savedCustomer = customerRepository.save(customer);
 
         accountsRepository.save(createAccountEntity(savedCustomer));
@@ -103,8 +101,6 @@ public class AccountsServiceImpl implements IAccountsService {
         newAccount.setCustomerId(customer.getId());
         newAccount.setAccountType(SAVINGS);
         newAccount.setBranchAddress(ADDRESS);
-        newAccount.setCreatedAt(LocalDateTime.now());
-        newAccount.setCreatedBy("Anonymous");
 
         return newAccount;
     }
