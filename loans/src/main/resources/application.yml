@@ -11,9 +11,10 @@ spring:
     driver-class-name: org.h2.Driver
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
-        ddl-auto: update
         dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
   h2:
