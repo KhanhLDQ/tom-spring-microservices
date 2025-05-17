@@ -28,6 +28,7 @@ import org.tommap.loans.service.ILoansService;
 
 import static org.tommap.loans.constants.LoansConstants.MESSAGE_200;
 import static org.tommap.loans.constants.LoansConstants.MESSAGE_201;
+import static org.tommap.loans.constants.LoansConstants.MESSAGE_417_DELETE;
 import static org.tommap.loans.constants.LoansConstants.MESSAGE_417_UPDATE;
 import static org.tommap.loans.constants.LoansConstants.STATUS_200;
 import static org.tommap.loans.constants.LoansConstants.STATUS_201;
@@ -154,7 +155,7 @@ public class LoansController {
         } else {
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
-                    .body(new ResponseDTO(STATUS_417, MESSAGE_417_UPDATE));
+                    .body(new ResponseDTO(STATUS_417, MESSAGE_417_DELETE));
         }
     }
 }
