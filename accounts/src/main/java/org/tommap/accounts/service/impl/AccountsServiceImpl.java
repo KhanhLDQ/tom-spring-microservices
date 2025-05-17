@@ -14,13 +14,11 @@ import org.tommap.accounts.repository.AccountsRepository;
 import org.tommap.accounts.repository.CustomerRepository;
 import org.tommap.accounts.service.IAccountsService;
 
-import static org.tommap.accounts.constants.AccountsConstants.ADDRESS;
-import static org.tommap.accounts.constants.AccountsConstants.SAVINGS;
-
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
 
+import static org.tommap.accounts.constants.AccountsConstants.ADDRESS;
+import static org.tommap.accounts.constants.AccountsConstants.SAVINGS;
 import static org.tommap.accounts.mapper.CustomerMapper.toCustomer;
 
 @Service
