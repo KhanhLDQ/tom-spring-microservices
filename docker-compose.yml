@@ -1,0 +1,38 @@
+services:
+  accounts-rest:
+    image: "tommapcoder/accounts:1.0"
+    container_name: "tom-accounts-service-v1"
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - tom
+  loans-rest:
+    image: "tommapcoder/loans:1.0"
+    container_name: "tom-loans-service-v1"
+    ports:
+      - "8090:8090"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - tom
+  cards-rest:
+    image: "tommapcoder/cards:1.0"
+    container_name: "tom-cards-service-v1"
+    ports:
+      - "8070:8070"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - tom
+
+networks:
+  tom:
+    driver: "bridge"
