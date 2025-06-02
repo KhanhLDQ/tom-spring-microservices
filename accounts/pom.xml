@@ -30,6 +30,7 @@
     <properties>
         <java.version>17</java.version>
         <lombok.version>1.18.30</lombok.version>
+        <docker.image.version>2.0</docker.image.version>
     </properties>
     <dependencies>
         <dependency>
@@ -108,6 +109,16 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <to>
+                        <image>tommapcoder/${project.name}:${docker.image.version}</image>
+                    </to>
                 </configuration>
             </plugin>
         </plugins>
