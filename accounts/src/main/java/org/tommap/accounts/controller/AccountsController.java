@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.tommap.accounts.dto.AccountsContactInfoDto;
 import org.tommap.accounts.dto.CustomerDTO;
 import org.tommap.accounts.dto.ErrorResponseDTO;
 import org.tommap.accounts.dto.ResponseDTO;
@@ -50,6 +51,7 @@ import static org.tommap.accounts.constants.AccountsConstants.STATUS_417;
 public class AccountsController {
     private final IAccountsService accountsService;
     private final Environment environment;
+    private final AccountsContactInfoDto contactInfoDto;
 
     @Value("${build.version}")
     private String buildVersion;
@@ -206,5 +208,24 @@ public class AccountsController {
         );
 
         return ResponseEntity.status(HttpStatus.OK).body(javaInfo);
+    }
+
+    @Operation(
+            summary = "Get Contact Information",
+            description = "Get contact details that can be reached out in case of any issues"
+    )
+    @GetMapping("/get-contact-info")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Get Contact Info Successfully"),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
+                    )
+            )
+    })
+    public ResponseEntity<AccountsContactInfoDto> getContactInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(contactInfoDto);
     }
 }
