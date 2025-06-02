@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +49,7 @@ import static org.tommap.accounts.constants.AccountsConstants.STATUS_417;
 )
 public class AccountsController {
     private final IAccountsService accountsService;
+    private final Environment environment;
 
     @Value("${build.version}")
     private String buildVersion;
@@ -181,5 +183,28 @@ public class AccountsController {
     })
     public ResponseEntity<String> getBuildInfo() {
         return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
+    }
+
+    @Operation(
+            summary = "Get Java Information",
+            description = "Get java information inside Accounts microservice"
+    )
+    @GetMapping("/get-java-info")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Get Java Info Successfully"),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
+                    )
+            )
+    })
+    public ResponseEntity<String> getJavaInfo() {
+        String javaInfo = String.format("javaHome: %s, javaVersion: %s",
+                environment.getProperty("java.home"), environment.getProperty("java.version")
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(javaInfo);
     }
 }
