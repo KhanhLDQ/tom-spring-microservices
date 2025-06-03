@@ -1,0 +1,11 @@
+build:
+  version: qa-2.0
+
+accounts:
+  message: Welcome to qa Accounts service
+  contactDetails:
+    name: Khanh - QA Lead
+    email: khanh@gmail.com
+  onCallSupport:
+    - (000) 789-3456
+    - (000) 123-6789

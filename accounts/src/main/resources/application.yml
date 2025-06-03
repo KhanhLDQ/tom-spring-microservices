@@ -20,6 +20,8 @@ spring:
   h2:
     console:
       enabled: true
+  profiles:
+    active: prod
 
 logging:
   pattern:
@@ -29,7 +31,7 @@ build:
   version: 2.0
 
 accounts:
-  message: Welcome to Accounts service
+  message: Welcome to local Accounts service
   contactDetails:
     name: Tom - Developer
     email: tom@gmail.com
