@@ -1,0 +1,11 @@
+build:
+  version: prod-2.0
+
+cards:
+  message: Welcome to prod Cards service
+  contactDetails:
+    name: Tien - Product Owner
+    email: tien@gmail.com
+  onCallSupport:
+    - (222) 111-2222
+    - (222) 222-3333

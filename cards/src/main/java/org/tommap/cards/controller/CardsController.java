@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.tommap.cards.dto.CardsContactInfoDto;
 import org.tommap.cards.dto.CardsDTO;
 import org.tommap.cards.dto.ErrorResponseDTO;
 import org.tommap.cards.dto.ResponseDTO;
@@ -47,6 +50,11 @@ import static org.tommap.cards.constants.CardsConstants.STATUS_417;
 )
 public class CardsController {
     private final ICardsService cardsService;
+    private final Environment environment;
+    private final CardsContactInfoDto contactInfoDto;
+
+    @Value("${build.version}")
+    private String buildVersion;
 
     @Operation(
             summary = "Create Card REST API",
@@ -157,5 +165,66 @@ public class CardsController {
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDTO(STATUS_417, MESSAGE_417_DELETE));
         }
+    }
+
+    @Operation(
+            summary = "Get Build Information",
+            description = "Get build information that is deployed into Cards microservice"
+    )
+    @GetMapping("/get-build-info")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Get Build Info Successfully"),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
+                    )
+            )
+    })
+    public ResponseEntity<String> getBuildInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
+    }
+
+    @Operation(
+            summary = "Get Java Information",
+            description = "Get java information inside Cards microservice"
+    )
+    @GetMapping("/get-java-info")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Get Java Info Successfully"),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
+                    )
+            )
+    })
+    public ResponseEntity<String> getJavaInfo() {
+        String javaInfo = String.format("javaHome: %s, javaVersion: %s",
+                environment.getProperty("java.home"), environment.getProperty("java.version")
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(javaInfo);
+    }
+
+    @Operation(
+            summary = "Get Contact Information",
+            description = "Get contact details that can be reached out in case of any issues"
+    )
+    @GetMapping("/get-contact-info")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Get Contact Info Successfully"),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
+                    )
+            )
+    })
+    public ResponseEntity<CardsContactInfoDto> getContactInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(contactInfoDto);
     }
 }

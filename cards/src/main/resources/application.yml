@@ -20,7 +20,21 @@ spring:
   h2:
     console:
       enabled: true
+  profiles:
+    active: prod
 
 logging:
   pattern:
     console: "%green(%d{yyyy-MM-dd HH:mm:ss.SSS}) %blue(%-5level) %magenta(${PID:- }) --- %red([%15.15thread]) %yellow(%-40.40logger{39}): %msg%n%wEx"
+
+build:
+  version: 2.0
+
+cards:
+  message: Welcome to local Cards service
+  contactDetails:
+    name: Nga - Developer
+    email: nga@gmail.com
+  onCallSupport:
+    - (222) 123-4567
+    - (222) 234-5678
