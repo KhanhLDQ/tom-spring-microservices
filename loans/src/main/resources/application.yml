@@ -20,7 +20,21 @@ spring:
   h2:
     console:
       enabled: true
+  profiles:
+    active: prod
 
 logging:
   pattern:
     console: "%green(%d{yyyy-MM-dd HH:mm:ss.SSS}) %blue(%-5level) %magenta(${PID:- }) --- %red([%15.15thread]) %yellow(%-40.40logger{39}): %msg%n%wEx"
+
+build:
+  version: 2.0
+
+loans:
+  message: Welcome to local Loans service
+  contactDetails:
+    name: Pun - Developer
+    email: pun@gmail.com
+  onCallSupport:
+    - (111) 123-4567
+    - (111) 234-5678
