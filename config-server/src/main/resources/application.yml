@@ -3,12 +3,21 @@ spring:
   application:
     name: config-server
   profiles:
-    active: native #Loads config files from local filesystem/classpath instead of Git - ideal for dev/testing environments
+    active: git
+  #    active: native #Loads config files from local filesystem/classpath instead of Git - ideal for dev/testing environments
   cloud:
     config:
       server:
-        native:
-          search-locations: "file:///Users/khanhle/Documents/udemy_course/tom-spring-microservices/config-files" #Local file system approach
+        git:
+          uri: "https://github.com/KhanhLDQ/tom-microservices-config.git"
+          default-label: main #Default branch that config server has to connect
+          timeout: 10 #Connect timeout in seconds
+          clone-on-start: true #Clone GitHub repo into local system during the startup - if false then the cloning of GitHub repo will only happen when the very first request comes to the config server
+          force-pull: true #Make sure config server always reading the properties from the GitHub repo
+          username: ${GITHUB_USERNAME}
+          password: ${GITHUB_TOKEN}
+#        native:
+#          search-locations: "file:///Users/khanhle/Documents/udemy_course/tom-spring-microservices/config-files" #Local file system approach
 #          search-locations: "classpath:/config" #Looks for config files in src/main/resources/config
 
 server:
