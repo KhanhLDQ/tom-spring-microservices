@@ -1,0 +1,11 @@
+build:
+  version: qa-2.0
+
+loans:
+  message: Welcome to qa Loans service
+  contactDetails:
+    name: Diep - QA Lead
+    email: diep@gmail.com
+  onCallSupport:
+    - (111) 789-3456
+    - (111) 123-6789

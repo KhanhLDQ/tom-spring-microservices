@@ -1,0 +1,11 @@
+build:
+  version: prod-2.0
+
+loans:
+  message: Welcome to prod Loans service
+  contactDetails:
+    name: Van - Product Owner
+    email: van@gmail.com
+  onCallSupport:
+    - (111) 111-2222
+    - (111) 222-3333

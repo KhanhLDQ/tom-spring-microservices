@@ -1,0 +1,14 @@
+#Access pattern: http://localhost:8071/{service-name}/{profile} (e.g., /accounts-service/prod)
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: native #Loads config files from local filesystem/classpath instead of Git - ideal for dev/testing environments
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: "classpath:/config" #Looks for config files in src/main/resources/config
+
+server:
+  port: 8071
