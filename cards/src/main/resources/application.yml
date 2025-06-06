@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: cards-service
+  profiles:
+    active: prod
   datasource:
     url: jdbc:h2:mem:testdb
     username: sa
@@ -20,21 +22,9 @@ spring:
   h2:
     console:
       enabled: true
-  profiles:
-    active: prod
+  config:
+    import: "optional:configserver:http://localhost:8071/"
 
 logging:
   pattern:
     console: "%green(%d{yyyy-MM-dd HH:mm:ss.SSS}) %blue(%-5level) %magenta(${PID:- }) --- %red([%15.15thread]) %yellow(%-40.40logger{39}): %msg%n%wEx"
-
-build:
-  version: 2.0
-
-cards:
-  message: Welcome to local Cards service
-  contactDetails:
-    name: Nga - Developer
-    email: nga@gmail.com
-  onCallSupport:
-    - (222) 123-4567
-    - (222) 234-5678
