@@ -1,0 +1,11 @@
+build:
+  version: 2.0
+
+loans:
+  message: Welcome to local Loans service
+  contactDetails:
+    name: Pun - Developer
+    email: pun@gmail.com
+  onCallSupport:
+    - (111) 123-4567
+    - (111) 234-5678

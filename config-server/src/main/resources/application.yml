@@ -8,7 +8,8 @@ spring:
     config:
       server:
         native:
-          search-locations: "classpath:/config" #Looks for config files in src/main/resources/config
+          search-locations: "file:///Users/khanhle/Documents/udemy_course/tom-spring-microservices/config-files" #Local file system approach
+#          search-locations: "classpath:/config" #Looks for config files in src/main/resources/config
 
 server:
   port: 8071

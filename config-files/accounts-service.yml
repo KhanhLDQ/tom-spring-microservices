@@ -1,0 +1,11 @@
+build:
+  version: 2.0
+
+accounts:
+  message: Welcome to local Accounts service
+  contactDetails:
+    name: Tom - Developer
+    email: tom@gmail.com
+  onCallSupport:
+    - (000) 123-4567
+    - (000) 234-5678
