@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: accounts-service
+  profiles:
+    active: prod
   datasource:
     url: jdbc:h2:mem:testdb
     username: sa
@@ -20,21 +22,9 @@ spring:
   h2:
     console:
       enabled: true
-  profiles:
-    active: prod
+  config:
+    import: "optional:configserver:http://localhost:8071/" #Fetch configs from Config Server at startup. 'optional:' = app starts even if server is down. 'configserver:' = protocol (not app name)
 
 logging:
   pattern:
     console: "%green(%d{yyyy-MM-dd HH:mm:ss.SSS}) %blue(%-5level) %magenta(${PID:- }) --- %red([%15.15thread]) %yellow(%-40.40logger{39}): %msg%n%wEx"
-
-build:
-  version: 2.0
-
-accounts:
-  message: Welcome to local Accounts service
-  contactDetails:
-    name: Tom - Developer
-    email: tom@gmail.com
-  onCallSupport:
-    - (000) 123-4567
-    - (000) 234-5678
