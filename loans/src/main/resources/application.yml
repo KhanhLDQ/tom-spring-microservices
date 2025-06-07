@@ -28,3 +28,9 @@ spring:
 logging:
   pattern:
     console: "%green(%d{yyyy-MM-dd HH:mm:ss.SSS}) %blue(%-5level) %magenta(${PID:- }) --- %red([%15.15thread]) %yellow(%-40.40logger{39}): %msg%n%wEx"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, info
